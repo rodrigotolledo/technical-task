@@ -11,8 +11,7 @@ class ManageSettingsPage
 
 	def visit
 		@driver.navigate.to "https://www.amaysim.com.au/my-account/my-amaysim/settings"
-
-		sleep 3 # Replace by wait.until
+		sleep 3 
 	end
 
 	def call_forwarding_status
@@ -20,11 +19,11 @@ class ManageSettingsPage
 	end
 
 	def confirm_call_forwarding
-		@wait.until { @driver.find_element(link_text: 'Confirm') } # Review how reliable this one is.
+		@wait.until { @driver.find_element(link_text: 'Confirm') }
 	end
 
 	def submit_button
-		@wait.until { @driver.find_element(name: 'commit') } # Refactor, this has been declared already
+		@wait.until { @driver.find_element(name: 'commit') }
 	end
 
 	def wait_for_call_forward_success_modal
@@ -48,15 +47,15 @@ class ManageSettingsPage
 			# Using execute_script because Selenium wasn't able to click on element using default click() method
 			@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
-			sleep 7 # Replace by wait.until
+			sleep 7
 			confirm_call_forwarding.click
 
-			sleep 5 # Replace by wait.until
+			sleep 5
 
 			# Using execute_script because Selenium wasn't able to click on element using default click() method
 			@driver.execute_script('document.getElementById("my_amaysim2_setting_call_divert_false").click()')
 
-			sleep 5 # Replace by wait.until
+			sleep 5
 			submit_button.submit
 
 			wait_for_call_forward_success_modal
@@ -68,7 +67,7 @@ class ManageSettingsPage
 			# Using execute_script because Selenium wasn't able to click on element using default click() method
 			@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
-			sleep 7 # Replace by wait.until
+			sleep 7
 			confirm_call_forwarding.click
 
 			forward_calls_to_number.clear
@@ -84,15 +83,15 @@ class ManageSettingsPage
 		# Using execute_script because Selenium wasn't able to click on element using default click() method
 		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
-		sleep 7 # Replace by wait.until
+		sleep 7
 		confirm_call_forwarding.click
 
-		sleep 5 # Replace by wait.until
+		sleep 5
 
 		# Using execute_script because Selenium wasn't able to click on element using default click() method
 		@driver.execute_script('document.getElementById("my_amaysim2_setting_call_divert_false").click()')
 
-		sleep 5 # Replace by wait.until
+		sleep 5
 		submit_button.submit
 
 		return wait_for_call_forward_success_modal
@@ -102,7 +101,7 @@ class ManageSettingsPage
 		# Using execute_script because Selenium wasn't able to click on element using default click() method
 		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
-		sleep 7 # Replace by wait.until
+		sleep 7
 		confirm_call_forwarding.click
 
 		forward_calls_to_number.clear
@@ -117,7 +116,7 @@ class ManageSettingsPage
 		# Using execute_script because Selenium wasn't able to click on element using default click() method
 		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
-		sleep 7 # Replace by wait.until
+		sleep 7
 		confirm_call_forwarding.click
 
 		forward_calls_to_number.clear
