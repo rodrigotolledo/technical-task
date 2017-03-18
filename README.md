@@ -50,3 +50,5 @@ rspec specs/myamaysim-manage-settings-test.rb
 Your browser will open and tests will be executed. Once tests are finished, you should see the following results in your console:
 
 ![alt text](img/execution-example.png "Execution example")	
+## Further improvements
+There are a few `sleep`'s in the code which ideally should be replaced by `wait.until` to improve test robustness.
