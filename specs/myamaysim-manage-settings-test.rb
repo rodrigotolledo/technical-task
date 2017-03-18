@@ -5,7 +5,6 @@ require "./pages/ManageSettingsPage"
 
 
 describe 'MyAmaysim Manage Settings (Call Forwarding)' do
-
 	before(:all) do
 		Selenium::WebDriver::Chrome.driver_path = "driver/chromedriver"
 		
@@ -26,27 +25,41 @@ describe 'MyAmaysim Manage Settings (Call Forwarding)' do
 		@driver.quit
 	end
 
-	it 'should be able to enable Call Forwarding' do
+	it 'should enable Call Forwarding' do
 		manage_settings_page = ManageSettingsPage.new(@driver, @wait)
 
 		manage_settings_page.visit
 
 		manage_settings_page.disable_call_forwarding_if_needed
 
-		manage_settings_page.enable_call_forwarding
+		is_call_forwarding_enabled = manage_settings_page.enable_call_forwarding
+
+		expect(is_call_forwarding_enabled).to eq(true)
 	end
 
-	xit 'should be able to disable Call Forwarding' do
+	it 'should disable Call Forwarding' do
+		manage_settings_page = ManageSettingsPage.new(@driver, @wait)
 
+		manage_settings_page.visit
+
+		manage_settings_page.enable_call_forwarding_if_needed
+
+		is_call_forwarding_disabled = manage_settings_page.disable_call_forwarding
+
+		expect(is_call_forwarding_disabled).to eq(true)
 	end
 
-	xit 'should NOT be able to enable Call Forwarding with invalid Australian number' do
+	it 'should NOT enable Call Forwarding with invalid Australian phone number' do
+		manage_settings_page = ManageSettingsPage.new(@driver, @wait)
 
+		manage_settings_page.visit
+
+		manage_settings_page.disable_call_forwarding_if_needed
+
+		message = manage_settings_page.try_to_enable_call_forwarding_with_invalid_number
+
+		expectedMessage = "Please enter your phone number in the following format: 0412 345 678 or 02 1234 5678"
+
+		expect(message).to eq(expectedMessage)
 	end
-
 end
-
-
-
-
-

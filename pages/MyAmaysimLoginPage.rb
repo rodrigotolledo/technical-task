@@ -1,7 +1,6 @@
 require "selenium-webdriver"
 
 class MyAmaysimLoginPage
-
 	attr_accessor :driver
 	attr_accessor :wait
 
@@ -31,5 +30,4 @@ class MyAmaysimLoginPage
 
 		@wait.until { @driver.find_element(class: 'logout-link') } # Make sure login was successful (wait till Logout link is present)
 	end
-
 end

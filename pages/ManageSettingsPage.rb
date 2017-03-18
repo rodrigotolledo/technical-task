@@ -1,7 +1,6 @@
 require "selenium-webdriver"
 
 class ManageSettingsPage
-
 	attr_accessor :driver
 	attr_accessor :wait
 
@@ -29,7 +28,11 @@ class ManageSettingsPage
 	end
 
 	def wait_for_call_forward_success_modal
-		@wait.until { @driver.find_element(css: '.form_info_popup.reveal-modal.padding-none.open').displayed? }
+		return @wait.until { @driver.find_element(css: '.form_info_popup.reveal-modal.padding-none.open').displayed? }
+	end
+
+	def wait_for_phone_number_error_message
+		@wait.until { @driver.find_element(css: '#settings_divert_number > span').text }
 	end
 
 	def forward_calls_to_number
@@ -64,6 +67,49 @@ class ManageSettingsPage
 		end
 	end
 
+	def enable_call_forwarding_if_needed
+		if (is_call_forwarding_enabled == "No")
+			puts "[Call Forwarding is currently DISABLED]"
+
+			# Using execute_script because Selenium wasn't able to click on element using default click() method
+			@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
+
+			sleep 7 # Replace by wait.until
+			confirm_call_forwarding.click
+
+			forward_calls_to_number.clear
+			forward_calls_to_number.send_keys "0412345678"
+
+			submit_button.submit
+
+			wait_for_call_forward_success_modal
+
+			puts ">>>>>>>>>>>> Call Forwarding is now ENABLED <<<<<<<<<<<<<<"
+		end
+	end
+
+	def disable_call_forwarding
+		puts "[Call Forwarding is currently ENABLED]"
+
+		# Using execute_script because Selenium wasn't able to click on element using default click() method
+		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
+
+		sleep 7 # Replace by wait.until
+		confirm_call_forwarding.click
+
+		sleep 5 # Replace by wait.until
+
+		# Using execute_script because Selenium wasn't able to click on element using default click() method
+		@driver.execute_script('document.getElementById("my_amaysim2_setting_call_divert_false").click()')
+
+		sleep 5 # Replace by wait.until
+		submit_button.submit
+
+		return wait_for_call_forward_success_modal
+
+		puts ">>>>>>>>>>>> Call Forwarding is now DISABLED <<<<<<<<<<<<<<"
+	end
+
 	def enable_call_forwarding
 		puts "[Call Forwarding is currently DISABLED]"
 
@@ -78,9 +124,25 @@ class ManageSettingsPage
 
 		submit_button.submit
 
-		wait_for_call_forward_success_modal
+		return wait_for_call_forward_success_modal
 
 		puts ">>>>>>>>>>>> Call Forwarding is now ENABLED <<<<<<<<<<<<<<"
 	end
 
+	def try_to_enable_call_forwarding_with_invalid_number
+		puts "[Call Forwarding is currently DISABLED]"
+
+		# Using execute_script because Selenium wasn't able to click on element using default click() method
+		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
+
+		sleep 7 # Replace by wait.until
+		confirm_call_forwarding.click
+
+		forward_calls_to_number.clear
+		forward_calls_to_number.send_keys "123456789"
+
+		submit_button.submit
+
+		return wait_for_phone_number_error_message
+	end
 end
