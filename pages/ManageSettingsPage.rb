@@ -44,9 +44,7 @@ class ManageSettingsPage
 	end
 
 	def disable_call_forwarding_if_needed
-		if (is_call_forwarding_enabled == "Yes")
-			puts "[Call Forwarding is currently ENABLED]"
-
+		if (is_call_forwarding_enabled == "Yes")			
 			# Using execute_script because Selenium wasn't able to click on element using default click() method
 			@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
@@ -62,15 +60,11 @@ class ManageSettingsPage
 			submit_button.submit
 
 			wait_for_call_forward_success_modal
-
-			puts ">>>>>>>>>>>> Call Forwarding is now DISABLED <<<<<<<<<<<<<<"
 		end
 	end
 
 	def enable_call_forwarding_if_needed
 		if (is_call_forwarding_enabled == "No")
-			puts "[Call Forwarding is currently DISABLED]"
-
 			# Using execute_script because Selenium wasn't able to click on element using default click() method
 			@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
@@ -83,14 +77,10 @@ class ManageSettingsPage
 			submit_button.submit
 
 			wait_for_call_forward_success_modal
-
-			puts ">>>>>>>>>>>> Call Forwarding is now ENABLED <<<<<<<<<<<<<<"
 		end
 	end
 
 	def disable_call_forwarding
-		puts "[Call Forwarding is currently ENABLED]"
-
 		# Using execute_script because Selenium wasn't able to click on element using default click() method
 		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
@@ -106,13 +96,9 @@ class ManageSettingsPage
 		submit_button.submit
 
 		return wait_for_call_forward_success_modal
-
-		puts ">>>>>>>>>>>> Call Forwarding is now DISABLED <<<<<<<<<<<<<<"
 	end
 
 	def enable_call_forwarding
-		puts "[Call Forwarding is currently DISABLED]"
-
 		# Using execute_script because Selenium wasn't able to click on element using default click() method
 		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
@@ -125,13 +111,9 @@ class ManageSettingsPage
 		submit_button.submit
 
 		return wait_for_call_forward_success_modal
-
-		puts ">>>>>>>>>>>> Call Forwarding is now ENABLED <<<<<<<<<<<<<<"
 	end
 
 	def try_to_enable_call_forwarding_with_invalid_number
-		puts "[Call Forwarding is currently DISABLED]"
-
 		# Using execute_script because Selenium wasn't able to click on element using default click() method
 		@driver.execute_script('document.getElementById("edit_settings_call_forwarding").click()')
 
