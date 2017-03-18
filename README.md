@@ -40,6 +40,13 @@ gem install selenium-webdriver
 gem install rspec
 ```
 
+## Project structure
+`driver` - Contains ChromeDriver which is used by Selenium-WebDriver to run the tests.
+
+`pages` - Pages elements and methods to interact with application.
+
+`specs` - Tests are located here.
+
 ## Running the tests
 To run the tests, simply run the following command (from the main project directory):
 
