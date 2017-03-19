@@ -59,3 +59,5 @@ Your browser will open and tests will be executed. Once tests are finished, you 
 ![alt text](img/execution-example.png "Execution example")	
 ## Further improvements
 There are a few `sleep`'s in the code which ideally should be replaced by `wait.until` to improve test robustness.
+
+Having a `Gemfile` with the specific gem versions (selenium-webdriver, rspec and ruby) would make the setup easier.
